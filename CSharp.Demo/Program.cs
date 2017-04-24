@@ -29,9 +29,9 @@ namespace CSharp.Demo
 
                 watch.Restart();
 
-                foreach (var file in files)
+                foreach (string filePath in files)
                 {
-                    File.Encrypt(file);
+                    File.Encrypt(filePath);
                 }
 
                 watch.Stop();
@@ -47,7 +47,10 @@ namespace CSharp.Demo
                 Console.WriteLine("Starting parallel loop");
                 watch.Restart();
 
-                Parallel.ForEach(files, f => File.Encrypt(f));
+                Parallel.ForEach(files, filePath =>
+                {
+                    File.Encrypt(filePath);
+                });
 
                 watch.Stop();
                 Console.WriteLine("Encrypt Parallel files : {0}s", watch.Elapsed.TotalSeconds);
@@ -62,12 +65,12 @@ namespace CSharp.Demo
                 watch.Restart();
 
                 List<Task> tasks = new List<Task>();
-                foreach (string file in files)
+                foreach (string filePath in files)
                 {
-                    tasks.Add(Task.Run(() => File.Encrypt(file)));
+                    tasks.Add(Task.Run(() => File.Encrypt(filePath)));
                 }
 
-                Console.WriteLine("Extra work waiting encrypt ...");
+                Console.WriteLine("Extra work during encrypt ...");
 
                 Task.WaitAll(tasks.ToArray());
 

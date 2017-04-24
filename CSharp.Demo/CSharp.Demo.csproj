@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="CSharp.pptx" />
     <None Include="document.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
